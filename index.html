@@ -181,6 +181,39 @@ footer a{color:var(--teal);text-decoration:none;display:block;padding:2px 0}
 footer a:hover{color:var(--orange)}
 footer img{height:56px;width:auto;margin-bottom:12px}
 @media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+/* Numbers: revenue split calculator */
+.numbers{background:var(--night);color:var(--cream);border-top:1px solid rgba(252,251,243,.12)}
+.numbers .lede{color:#D3DFDD}
+.calc{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,4vw,56px);align-items:start;margin-top:44px}
+@media (max-width:900px){.calc{grid-template-columns:1fr}}
+.controls{display:flex;flex-direction:column;gap:26px;min-width:0}
+.ctl{display:flex;flex-direction:column;gap:10px}
+.ctl-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ctl label,.grp-title{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#A9C6C4;font-weight:600}
+.ctl output{font-family:var(--display);font-size:clamp(28px,3vw,38px);color:var(--flame);line-height:1;font-variant-numeric:tabular-nums}
+.ctl .help{font-size:14px;color:#D3DFDD}
+.numbers input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:rgba(252,251,243,.18);border-radius:3px;margin:6px 0}
+.numbers input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--flame);box-shadow:0 0 14px var(--flame);cursor:pointer;border:0}
+.numbers input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--flame);box-shadow:0 0 14px var(--flame);cursor:pointer;border:0}
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
+@media (max-width:440px){.price-grid{grid-template-columns:1fr}}
+.pin{display:flex;flex-direction:column;gap:6px;background:var(--night-2);border:1px solid rgba(252,251,243,.12);border-radius:16px;padding:12px 14px;min-width:0}
+.pin span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A9C6C4;font-weight:600}
+.pin div{display:flex;align-items:center;gap:4px;font-family:var(--display);font-size:28px;color:var(--cream)}
+.pin input{width:100%;min-width:0;background:transparent;border:0;border-bottom:2px solid rgba(252,251,243,.25);color:var(--cream);font-family:var(--display);font-size:28px;padding:0 0 2px;font-variant-numeric:tabular-nums}
+.pin input::-webkit-inner-spin-button,.pin input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.pin input{-moz-appearance:textfield}
+.pin input:focus{outline:none;border-bottom-color:var(--flame)}
+.slip{background:var(--cream);color:var(--teal);border-radius:28px;padding:10px clamp(20px,3vw,32px);box-shadow:0 24px 60px rgba(0,0,0,.35);position:sticky;top:96px}
+.slip .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px dashed rgba(19,73,78,.25)}
+.slip .row:last-child{border-bottom:0}
+.slip .k{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);font-weight:600}
+.slip .v{font-family:var(--display);font-size:clamp(24px,2.6vw,32px);font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip .row.sub .v{font-size:clamp(20px,2vw,24px)}
+.slip .row.total .v{color:var(--teal)}
+.slip .row.hl .v{color:var(--orange)}
+.numbers .btn.ghost{padding:10px 20px;font-size:15px;align-self:flex-start}
+@media (max-width:900px){.slip{position:static}}
 .center{text-align:center}
 .center .lede{margin-inline:auto}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero video{display:none}}
@@ -289,12 +322,12 @@ footer img{height:56px;width:auto;margin-bottom:12px}
       <div class="ticket">
         <h3>General Admission</h3>
         <div class="prices">
-          <div><p class="price">$18</p><p class="pl">Adult advance</p></div>
-          <div><p class="price">$22</p><p class="pl">Adult gate</p></div>
+          <div><p class="price" data-show="adultAdv">$18</p><p class="pl">Adult advance</p></div>
+          <div><p class="price" data-show="adultGate">$22</p><p class="pl">Adult gate</p></div>
         </div>
         <div class="prices">
-          <div><p class="price kid">$9</p><p class="pl">Kids advance</p></div>
-          <div><p class="price kid">$11</p><p class="pl">Kids gate</p></div>
+          <div><p class="price kid" data-show="kidAdv">$9</p><p class="pl">Kids advance</p></div>
+          <div><p class="price kid" data-show="kidGate">$11</p><p class="pl">Kids gate</p></div>
         </div>
         <p class="note">Kids 5 to 17 at half price. Under 5 free. Includes the balloon glow, music, vendor row and kid zone.</p>
         <a class="btn" href="#" data-tickets>Buy General Admission</a>
@@ -302,14 +335,75 @@ footer img{height:56px;width:auto;margin-bottom:12px}
       <div class="ticket vip">
         <h3>VIP, 21 and up</h3>
         <div class="prices">
-          <div><p class="price">$50</p><p class="pl">Advance</p></div>
-          <div><p class="price">$60</p><p class="pl">Day of</p></div>
+          <div><p class="price" data-show="vipAdv">$50</p><p class="pl">Advance</p></div>
+          <div><p class="price" data-show="vipGate">$60</p><p class="pl">Day of</p></div>
         </div>
         <p class="note">A premium viewing area close to the balloons with a private bar and VIP amenities. Limited quantity.</p>
         <a class="btn" href="#" data-tickets>Buy VIP</a>
       </div>
     </div>
     <p class="fine">All tickets are non-refundable. Ticket fees are paid by the buyer. Adults are 18 and up. VIP requires ID showing age 21 or older.</p>
+  </div>
+</section>
+<section id="numbers" class="numbers" aria-labelledby="numbers-title">
+  <div class="wrap">
+    <div class="stack">
+      <p class="eyebrow" style="color:var(--flame)">The numbers</p>
+      <h2 id="numbers-title">Ticket revenue split</h2>
+      <p class="lede">Ticket revenue is split between Aire Craft Festival and Seattle Ballooning. Change attendance, the ticket mix, the split and every ticket price. Price changes also update the ticket cards above.</p>
+    </div>
+    <div class="calc">
+      <div class="controls">
+        <div class="ctl">
+          <div class="ctl-head"><label for="nAdults">Paid adults</label><output id="nAdultsOut">10,000</output></div>
+          <input type="range" id="nAdults" min="1000" max="20000" step="500" value="10000">
+          <p class="help">Adults 18 and up.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="nKids">Paid kids per 10 adults</label><output id="nKidsOut">3</output></div>
+          <input type="range" id="nKids" min="0" max="10" step="1" value="3">
+          <p class="help"><span id="nKidsCount">3,000</span> paid kids, ages 5 to 17. Under 5 free and not counted.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="nAdv">Bought in advance</label><output id="nAdvOut">70%</output></div>
+          <input type="range" id="nAdv" min="0" max="100" step="5" value="70">
+          <p class="help">The rest buy at the gate or day of.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="nVip">Adults buying VIP</label><output id="nVipOut">5%</output></div>
+          <input type="range" id="nVip" min="0" max="30" step="1" value="5">
+          <p class="help"><span id="nVipCount">500</span> VIP tickets.</p>
+        </div>
+        <div class="ctl">
+          <div class="ctl-head"><label for="nSplit">Aire Craft share</label><output id="nSplitOut">50 / 50</output></div>
+          <input type="range" id="nSplit" min="0" max="100" step="5" value="50">
+          <p class="help">Aire Craft Festival / Seattle Ballooning.</p>
+        </div>
+        <div class="ctl">
+          <p class="grp-title">Ticket prices</p>
+          <div class="price-grid">
+            <label class="pin"><span>Adult advance</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="adultAdv" value="18"></div></label>
+            <label class="pin"><span>Adult gate</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="adultGate" value="22"></div></label>
+            <label class="pin"><span>Kids advance</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="kidAdv" value="9"></div></label>
+            <label class="pin"><span>Kids gate</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="kidGate" value="11"></div></label>
+            <label class="pin"><span>VIP advance</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="vipAdv" value="50"></div></label>
+            <label class="pin"><span>VIP day of</span><div>$<input type="number" min="0" step="1" inputmode="decimal" data-price="vipGate" value="60"></div></label>
+          </div>
+        </div>
+        <button type="button" class="btn ghost" id="nReset">Reset to defaults</button>
+      </div>
+      <div class="slip" aria-live="polite">
+        <div class="row sub"><span class="k">General admission adults</span><span class="v" id="rGA">$0</span></div>
+        <div class="row sub"><span class="k">VIP</span><span class="v" id="rVip">$0</span></div>
+        <div class="row sub"><span class="k">Kids</span><span class="v" id="rKids">$0</span></div>
+        <div class="row total"><span class="k">Gross ticket revenue</span><span class="v" id="rGross">$0</span></div>
+        <div class="row hl"><span class="k">Aire Craft <span id="rPctA">50</span>%</span><span class="v" id="rA">$0</span></div>
+        <div class="row hl"><span class="k">Seattle Ballooning <span id="rPctS">50</span>%</span><span class="v" id="rS">$0</span></div>
+        <div class="row sub"><span class="k">Average adult ticket</span><span class="v" id="rAvgA">$0</span></div>
+        <div class="row sub"><span class="k">Average kid ticket</span><span class="v" id="rAvgK">$0</span></div>
+      </div>
+    </div>
+    <p class="fine">Ticket revenue only. Ticket fees are paid by the buyer and are not included. The advance share applies to general admission, kids and VIP.</p>
   </div>
 </section>
 <svg class="wave wave-night" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,80 480,80 720,44 C960,8 1200,8 1440,40 L1440,80 L0,80 Z" fill="#FAE0C7"/></svg>
@@ -479,6 +573,54 @@ var LINKS = {
 document.querySelectorAll('[data-tickets]').forEach(function(a){ a.href = LINKS.tickets; });
 document.querySelectorAll('[data-vendor]').forEach(function(a){ a.href = LINKS.vendor; });
 document.querySelectorAll('[data-sponsor]').forEach(function(a){ a.href = LINKS.sponsor; });
+</script>
+<script>
+/* Revenue split calculator. Price inputs also update the ticket cards (preview only, not saved). */
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var ids=['nAdults','nKids','nAdv','nVip','nSplit'];
+  var defaults={};
+  ids.forEach(function(id){defaults[id]=$(id).value;});
+  var priceIn=document.querySelectorAll('[data-price]');
+  priceIn.forEach(function(el){defaults[el.dataset.price]=el.value;});
+  var fmt=function(n){return Math.round(n).toLocaleString('en-US');};
+  var usd=function(n){return '$'+Math.round(n).toLocaleString('en-US');};
+  var usd2=function(n){return '$'+n.toFixed(2);};
+  var money=function(n){return '$'+(Math.round(n*100)%100?n.toFixed(2):Math.round(n));};
+  function price(k){var el=document.querySelector('[data-price="'+k+'"]');var v=parseFloat(el.value);return isFinite(v)&&v>0?v:0;}
+  function update(){
+    var adults=+$('nAdults').value, perTen=+$('nKids').value, adv=+$('nAdv').value/100, vipPct=+$('nVip').value/100, split=+$('nSplit').value;
+    var kids=Math.round(adults*perTen/10), vip=Math.round(adults*vipPct), ga=adults-vip;
+    var P={}; ['adultAdv','adultGate','kidAdv','kidGate','vipAdv','vipGate'].forEach(function(k){P[k]=price(k);});
+    var gaAvg=adv*P.adultAdv+(1-adv)*P.adultGate, kidAvg=adv*P.kidAdv+(1-adv)*P.kidGate, vipAvg=adv*P.vipAdv+(1-adv)*P.vipGate;
+    var rGA=ga*gaAvg, rVip=vip*vipAvg, rKids=kids*kidAvg, gross=rGA+rVip+rKids;
+    $('nAdultsOut').textContent=fmt(adults);
+    $('nKidsOut').textContent=perTen;
+    $('nKidsCount').textContent=fmt(kids);
+    $('nAdvOut').textContent=Math.round(adv*100)+'%';
+    $('nVipOut').textContent=Math.round(vipPct*100)+'%';
+    $('nVipCount').textContent=fmt(vip);
+    $('nSplitOut').textContent=split+' / '+(100-split);
+    $('rGA').textContent=usd(rGA);
+    $('rVip').textContent=usd(rVip);
+    $('rKids').textContent=usd(rKids);
+    $('rGross').textContent=usd(gross);
+    $('rPctA').textContent=split; $('rPctS').textContent=100-split;
+    $('rA').textContent=usd(gross*split/100);
+    $('rS').textContent=usd(gross*(100-split)/100);
+    $('rAvgA').textContent=usd2(adults?(rGA+rVip)/adults:0);
+    $('rAvgK').textContent=usd2(kidAvg);
+    document.querySelectorAll('[data-show]').forEach(function(el){el.textContent=money(P[el.dataset.show]);});
+  }
+  ids.forEach(function(id){$(id).addEventListener('input',update);});
+  priceIn.forEach(function(el){el.addEventListener('input',update);});
+  $('nReset').addEventListener('click',function(){
+    ids.forEach(function(id){$(id).value=defaults[id];});
+    priceIn.forEach(function(el){el.value=defaults[el.dataset.price];});
+    update();
+  });
+  update();
+})();
 </script>
 </body>
 </html>
